@@ -1,15 +1,12 @@
 public class Bank {
-    private int gold;
+    public int id;
+    public int gold;
 
     public Bank() {
         this.gold = 0;
     }
 
-    public void deposit(int gold) {
-        this.gold += gold;
-    }
-
-    public int getGold() {
-        return gold;
+    public Bank(int gold) {
+        this.gold = gold;
     }
 }

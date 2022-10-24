@@ -6,8 +6,7 @@ public class DirectDepositCommandTest {
     @Test
     void execute() {
         CommandHistory history = new CommandHistory();
-        Bank withGoldBank = new Bank();
-        withGoldBank.deposit(100);
+        Bank withGoldBank = new Bank(100);
         BankRepository mockBankRepository = new BankRepository();
         mockBankRepository.bank = withGoldBank;
         DirectDepositCommand command = new DirectDepositCommand(history, mockBankRepository);
