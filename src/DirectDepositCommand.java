@@ -1,15 +1,17 @@
 public class DirectDepositCommand {
     private final CommandHistory commandHistory;
-    private final Bank bank;
+    private final BankRepository bankRepository;
 
-    public DirectDepositCommand(CommandHistory history, Bank bank) {
+    public DirectDepositCommand(CommandHistory history, BankRepository bankRepository) {
         this.commandHistory = history;
-        this.bank = bank;
+        this.bankRepository = bankRepository;
     }
 
-    public void execute(int gold) {
-        String command = String.format("Команда положить %s золота в банк (напрямую из кармана)", gold);
+    public void execute(DepositCommandContext context) {
+        Bank bank = bankRepository.findById(context.clanId);
+        bank.deposit(context.gold);
+        String command = String.format("Команда положить %s золота в банк (напрямую из кармана). От игрока: %s. От клана: %s. Всего золота: %s", context.gold, context.playerId, context.clanId, bank.getGold());
         this.commandHistory.push(command);
-        bank.deposit(gold);
+
     }
 }

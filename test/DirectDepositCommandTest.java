@@ -6,11 +6,15 @@ public class DirectDepositCommandTest {
     @Test
     void execute() {
         CommandHistory history = new CommandHistory();
-        DirectDepositCommand command = new DirectDepositCommand(history, new Bank());
-        int gold = 100;
+        Bank withGoldBank = new Bank();
+        withGoldBank.deposit(100);
+        BankRepository mockBankRepository = new BankRepository();
+        mockBankRepository.bank = withGoldBank;
+        DirectDepositCommand command = new DirectDepositCommand(history, mockBankRepository);
+        DepositCommandContext context = new DepositCommandContext(100, 1, 1);
 
-        command.execute(gold);
+        command.execute(context);
 
-        assertEquals("Команда положить 100 золота в банк (напрямую из кармана)", history.pop());
+        assertEquals("Команда положить 100 золота в банк (напрямую из кармана). От игрока: 1. От клана: 1. Всего золота: 200", history.pop());
     }
 }
