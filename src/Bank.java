@@ -6,6 +6,11 @@ public class Bank {
         this.gold = 0;
     }
 
+    public Bank(int id, int gold) {
+        this.gold = gold;
+        this.id = id;
+    }
+
     public Bank(int gold) {
         this.gold = gold;
     }

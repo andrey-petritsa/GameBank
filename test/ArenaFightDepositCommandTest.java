@@ -4,19 +4,16 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class ArenaFightDepositCommandTest {
     @Test
-    void test() {
-        BankRepository stubBankRepository = new BankRepository();
+    void execute() {
+        Bank bank = new Bank(1, 100);
+        Player player = new Player(1, bank);
         PlayerRepository stubPlayerRepository = new PlayerRepository();
-        stubBankRepository.bank = new Bank();
-        Player clanPlayer = new Player();
-        clanPlayer.id = 1;
-        clanPlayer.clanBankId = 1;
-        stubPlayerRepository.player = clanPlayer;
+        stubPlayerRepository.player = player;
         CommandHistory history = new CommandHistory();
-        ArenaFightDepositCommand command = new ArenaFightDepositCommand(history, stubBankRepository, stubPlayerRepository);
+        ArenaFightDepositCommand command = new ArenaFightDepositCommand(history, stubPlayerRepository);
 
         command.execute(1);
 
-        assertEquals("Команда положить 100 золота в банк (сражаясь на арене). От игрока: 1. В клан: 1. Золота итого: 100", history.pop());
+        assertEquals("Команда положить 100 золота в банк (сражаясь на арене). От игрока: 1. В клан: 1. Золота итого: 200", history.pop());
     }
 }
