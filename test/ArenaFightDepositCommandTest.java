@@ -9,7 +9,7 @@ public class ArenaFightDepositCommandTest {
         Player player = new Player(1, bank);
         InMemoryPlayerRepository stubPlayerRepository = new InMemoryPlayerRepository();
         stubPlayerRepository.player = player;
-        CommandHistory history = new CommandHistory();
+        CommandHistory history = new StackCommandHistory();
         ArenaFightDepositCommand command = new ArenaFightDepositCommand(history, stubPlayerRepository, new GreatArenaWinStrategy());
 
         command.execute(1);

@@ -5,7 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class DirectDepositCommandTest {
     @Test
     void execute() {
-        CommandHistory history = new CommandHistory();
+        CommandHistory history = new StackCommandHistory();
         Bank withGoldBank = new Bank(100);
         ImMemoryBankRepository mockBankRepository = new ImMemoryBankRepository();
         mockBankRepository.bank = withGoldBank;
