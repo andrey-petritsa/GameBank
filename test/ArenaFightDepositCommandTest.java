@@ -7,7 +7,7 @@ public class ArenaFightDepositCommandTest {
     void execute() {
         Bank bank = new Bank(1, 100);
         Player player = new Player(1, bank);
-        PlayerRepository stubPlayerRepository = new PlayerRepository();
+        InMemoryPlayerRepository stubPlayerRepository = new InMemoryPlayerRepository();
         stubPlayerRepository.player = player;
         CommandHistory history = new CommandHistory();
         ArenaFightDepositCommand command = new ArenaFightDepositCommand(history, stubPlayerRepository, new GreatArenaWinStrategy());

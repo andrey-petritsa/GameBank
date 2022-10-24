@@ -1,7 +1,3 @@
-public class PlayerRepository {
-    public Player player;
-
-    public Player findPlayerById(int id) {
-        return player;
-    }
+public interface PlayerRepository {
+    Player findPlayerById(int id);
 }

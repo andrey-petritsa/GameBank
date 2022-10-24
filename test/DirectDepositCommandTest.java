@@ -7,7 +7,7 @@ public class DirectDepositCommandTest {
     void execute() {
         CommandHistory history = new CommandHistory();
         Bank withGoldBank = new Bank(100);
-        BankRepository mockBankRepository = new BankRepository();
+        ImMemoryBankRepository mockBankRepository = new ImMemoryBankRepository();
         mockBankRepository.bank = withGoldBank;
         DirectDepositCommand command = new DirectDepositCommand(history, mockBankRepository);
         DepositCommandContext context = new DepositCommandContext(100, 1, 1);

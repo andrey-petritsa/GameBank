@@ -1,7 +1,3 @@
-public class BankRepository {
-    public Bank bank;
-
-    public Bank findById(int id) {
-        return bank;
-    }
+public interface BankRepository {
+    Bank findById(int id);
 }
