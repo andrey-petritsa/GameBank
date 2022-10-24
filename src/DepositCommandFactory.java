@@ -1,7 +1,7 @@
 import java.util.Map;
 import java.util.Objects;
 
-public class DepositCommandFactory {
+public class DepositCommandFactory implements AbstractDepositCommandFactory {
     public DepositCommand create(Map<String, String> context) {
         if(Objects.equals(context.get("type"), "напрямую")) {
             DepositCommandContext depositCommandContext = new DepositCommandContext();
