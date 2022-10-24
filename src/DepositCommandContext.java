@@ -8,4 +8,6 @@ public class DepositCommandContext {
         this.playerId = playerId;
         this.clanId = clanId;
     }
+
+    public DepositCommandContext() {}
 }

@@ -6,4 +6,6 @@ public class Player {
         this.id = id;
         this.bank = bank;
     }
+
+    public Player() {}
 }

@@ -12,7 +12,7 @@ public class ArenaFightDepositCommandTest {
         CommandHistory history = new StackCommandHistory();
         ArenaFightDepositCommand command = new ArenaFightDepositCommand(history, stubPlayerRepository, new GreatArenaWinStrategy());
 
-        command.execute(1);
+        command.execute();
 
         assertEquals("Команда положить 1000 золота в банк (сражаясь на арене). От игрока: 1. В клан: 1. Золота итого: 1100", history.pop());
     }
