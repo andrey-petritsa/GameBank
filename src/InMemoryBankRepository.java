@@ -1,4 +1,4 @@
-public class ImMemoryBankRepository implements BankRepository {
+public class InMemoryBankRepository implements BankRepository {
     public Bank bank;
 
     @Override
