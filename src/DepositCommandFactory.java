@@ -14,9 +14,8 @@ public class DepositCommandFactory implements AbstractDepositCommandFactory {
             depositCommandContext.playerId = Integer.parseInt(context.get("playerId"));
             depositCommandContext.clanId = Integer.parseInt(context.get("clanId"));
             depositCommandContext.gold = Integer.parseInt(context.get("gold"));
-            InMemoryBankRepository repository = new InMemoryBankRepository();
-            repository.bank = new Bank();
-            DirectDepositCommand directDepositCommand = new DirectDepositCommand(commandHistory, repository);
+            InMemoryBankRepository bankRepository = new InMemoryBankRepository(new Bank());
+            DirectDepositCommand directDepositCommand = new DirectDepositCommand(commandHistory, bankRepository, new InMemoryPlayerRepository());
             directDepositCommand.setContext(depositCommandContext);
             return directDepositCommand;
         }
