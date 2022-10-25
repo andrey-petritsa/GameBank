@@ -22,11 +22,11 @@ public class FileCommandHistoryTest {
         String path = "tmp";
         FileCommandHistory history = new FileCommandHistory(path);
 
-        history.push("Команда запущена");
+        history.push("Команда запущена", new NullDepositCommand());
         File file = new File("tmp/history.txt");
         BufferedReader br = new BufferedReader(new FileReader(file));
 
-        assertEquals("Команда запущена", br.readLine());
+        assertEquals("Команда запущена | NullDepositCommand", br.readLine());
     }
 
     @Test
@@ -34,10 +34,10 @@ public class FileCommandHistoryTest {
         String path = "tmp";
         FileCommandHistory history = new FileCommandHistory(path);
 
-        history.push("Команда 1 запущена");
-        history.push("Команда 2 запущена");
+        history.push("Команда 1 запущена", new NullDepositCommand());
+        history.push("Команда 2 запущена", new NullDepositCommand());
 
-        assertEquals("Команда 1 запущена", history.get(0));
-        assertEquals("Команда 2 запущена", history.get(1));
+        assertEquals("Команда 1 запущена | NullDepositCommand", history.get(0));
+        assertEquals("Команда 2 запущена | NullDepositCommand", history.get(1));
     }
 }

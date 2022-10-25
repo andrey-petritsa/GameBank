@@ -11,8 +11,8 @@ public class DirectDepositCommand implements DepositCommand {
     public void execute() {
         Bank bank = bankRepository.findById(context.clanId);
         bank.gold += context.gold;
-        String command = String.format("Команда положить %s золота в банк (напрямую из кармана). От игрока: %s. От клана: %s. Всего золота: %s", context.gold, context.playerId, context.clanId, bank.gold);
-        this.commandHistory.push(command);
+        String commandMessage = String.format("Команда положить %s золота в банк (напрямую из кармана). От игрока: %s. От клана: %s. Всего золота: %s", context.gold, context.playerId, context.clanId, bank.gold);
+        this.commandHistory.push(commandMessage, this);
     }
 
     public void setContext(DepositCommandContext context) {

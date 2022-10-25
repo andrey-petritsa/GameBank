@@ -20,18 +20,19 @@ public class FileCommandHistory implements CommandHistory {
         }
     }
 
-    public void push(String command) {
+    public void push(String commandMessage, DepositCommand command) {
         try {
-            addCommandToFile(command);
+            String commandMessageWithCommandInstance = String.format("%s | %s", commandMessage, command.getClass().getSimpleName());
+            saveCommandToFile(commandMessageWithCommandInstance);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
 
-    private void addCommandToFile(String command) throws IOException {
+    private void saveCommandToFile(String commandMessage) throws IOException {
         Files.createDirectories(pathToFile.getParent());
         FileWriter myWriter = new FileWriter(pathToFile.toString(), true);
-        myWriter.write(command);
+        myWriter.write(commandMessage);
         myWriter.write("\n");
         myWriter.close();
     }

@@ -9,7 +9,7 @@ public class InMemoryCommandHistory implements CommandHistory {
     }
 
     @Override
-    public void push(String command) {
-        this.list.add(command);
+    public void push(String commandMessage, DepositCommand command) {
+        this.list.add(commandMessage);
     }
 }
