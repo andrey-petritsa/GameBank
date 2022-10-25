@@ -33,4 +33,9 @@ public class FileBankRepository implements BankRepository {
 
         throw new RuntimeException(String.format("Bank with id %s not found", id));
     }
+
+    @Override
+    public void save(Bank bank) {
+        fileClient.writeToFile(bank.toString(), pathToFile);
+    }
 }

@@ -23,4 +23,15 @@ public class FileBankRepositoryTest {
         assertEquals("1 100", repository.findById(1).toString());
         assertEquals("2 500", repository.findById(2).toString());
     }
+
+    @Test
+    void saveBankToFile() {
+        FileBankRepository repository = new FileBankRepository(PATH_TO_FILE, new PathFileClient());
+
+        repository.save(new Bank(1, 100));
+        repository.save(new Bank(2, 200));
+
+        assertEquals("1 100", repository.findById(1).toString());
+        assertEquals("2 200", repository.findById(2).toString());
+    }
 }

@@ -5,4 +5,8 @@ public class InMemoryBankRepository implements BankRepository {
     public Bank findById(int id) {
         return bank;
     }
+
+    @Override
+    public void save(Bank bank) {
+    }
 }
