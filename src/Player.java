@@ -7,5 +7,10 @@ public class Player {
         this.bank = bank;
     }
 
-    public Player() {}
+    public Player() {
+    }
+
+    public String toString() {
+        return String.format("%s %s", id, bank.id);
+    }
 }

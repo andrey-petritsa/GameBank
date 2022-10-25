@@ -5,4 +5,9 @@ public class InMemoryPlayerRepository implements PlayerRepository {
     public Player findPlayerById(int id) {
         return player;
     }
+
+    @Override
+    public BankRepository createBankRepository() {
+        return null;
+    }
 }
