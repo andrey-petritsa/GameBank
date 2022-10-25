@@ -2,10 +2,10 @@ import java.util.Map;
 import java.util.Objects;
 
 public class DepositCommandFactory implements AbstractDepositCommandFactory {
-    private CommandHistory commandHistory;
+    private final CommandHistory commandHistory;
 
     public DepositCommandFactory() {
-        commandHistory = new FileCommandHistory("storage");
+        commandHistory = new FileCommandHistory("storage/history.txt", new PathFileClient());
     }
 
     public DepositCommand create(Map<String, String> context) {

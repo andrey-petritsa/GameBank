@@ -1,14 +1,13 @@
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.List;
 
 public class FileBankRepository implements BankRepository {
-    private final Path path;
+    private final String pathToFile;
+    private final FileClient fileClient;
 
-    public FileBankRepository(String pathToFile) {
-        path = Paths.get(String.format("%s/banks.txt", pathToFile));
+    public FileBankRepository(String pathToFile, FileClient fileClient) {
+        this.fileClient = fileClient;
+        this.pathToFile = pathToFile;
     }
 
     @Override
@@ -21,7 +20,7 @@ public class FileBankRepository implements BankRepository {
     }
 
     private Bank createBankFromFileRecord(int id) throws IOException {
-        List<String> banks = Files.readAllLines(path);
+        List<String> banks = fileClient.readAllLines(pathToFile);
 
         for (String bank : banks) {
             int bankId = Integer.parseInt(bank.split(" ")[0]);

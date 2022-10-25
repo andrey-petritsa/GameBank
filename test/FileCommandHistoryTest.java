@@ -9,18 +9,17 @@ import java.io.IOException;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class FileCommandHistoryTest {
-    public static final String PATH_TO_FILE = "tmp/history.txt";
+    private final String PATH_TO_FILE = "tmp/history.txt";
+    private final FileClient fileClient = new PathFileClient();
 
     @BeforeEach
     public void setUp() {
-        File file = new File(PATH_TO_FILE);
-        file.delete();
+        fileClient.deleteFile(PATH_TO_FILE);
     }
 
     @Test
     void push() throws IOException {
-        String path = "tmp";
-        FileCommandHistory history = new FileCommandHistory(path);
+        FileCommandHistory history = new FileCommandHistory(PATH_TO_FILE, new PathFileClient());
 
         history.push("Команда запущена", new NullDepositCommand());
         File file = new File("tmp/history.txt");
@@ -31,8 +30,7 @@ public class FileCommandHistoryTest {
 
     @Test
     void get() {
-        String path = "tmp";
-        FileCommandHistory history = new FileCommandHistory(path);
+        FileCommandHistory history = new FileCommandHistory(PATH_TO_FILE, new PathFileClient());
 
         history.push("Команда 1 запущена", new NullDepositCommand());
         history.push("Команда 2 запущена", new NullDepositCommand());

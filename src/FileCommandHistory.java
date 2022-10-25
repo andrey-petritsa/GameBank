@@ -1,39 +1,20 @@
-import java.io.FileWriter;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 
 public class FileCommandHistory implements CommandHistory {
-    private final Path pathToFile;
+    private final String pathToFile;
+    private final FileClient fileClient;
 
-    public FileCommandHistory(String path) {
-        pathToFile = Paths.get(String.format("%s/history.txt", path));
+    public FileCommandHistory(String path, FileClient fileClient) {
+        pathToFile = path;
+        this.fileClient = fileClient;
     }
 
     @Override
     public String get(int i) {
-        try {
-            return Files.readAllLines(Paths.get(pathToFile.toUri())).get(i);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        return fileClient.readLine(pathToFile, i);
     }
 
     public void push(String commandMessage, DepositCommand command) {
-        try {
-            String commandMessageWithCommandInstance = String.format("%s | %s", commandMessage, command.getClass().getSimpleName());
-            saveCommandToFile(commandMessageWithCommandInstance);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    private void saveCommandToFile(String commandMessage) throws IOException {
-        Files.createDirectories(pathToFile.getParent());
-        FileWriter myWriter = new FileWriter(pathToFile.toString(), true);
-        myWriter.write(commandMessage);
-        myWriter.write("\n");
-        myWriter.close();
+        String commandMessageWithCommandInstance = String.format("%s | %s", commandMessage, command.getClass().getSimpleName());
+        fileClient.writeToFile(commandMessageWithCommandInstance, pathToFile);
     }
 }
