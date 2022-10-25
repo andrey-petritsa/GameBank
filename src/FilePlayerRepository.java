@@ -17,7 +17,12 @@ public class FilePlayerRepository implements PlayerRepository {
     }
 
     @Override
-    public Player findPlayerById(int id) {
+    public void save(Player player) {
+        fileClient.writeToFile(player.toString(), pathToFile);
+    }
+
+    @Override
+    public Player findById(int id) {
         List<String> players = fileClient.readAllLines(pathToFile);
 
         for (String player : players) {

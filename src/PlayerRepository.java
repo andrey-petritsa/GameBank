@@ -1,5 +1,7 @@
 public interface PlayerRepository {
-    Player findPlayerById(int id);
+    Player findById(int id);
 
     BankRepository createBankRepository();
+
+    void save(Player player);
 }
