@@ -14,4 +14,8 @@ public class Bank {
     public Bank(int gold) {
         this.gold = gold;
     }
+
+    public String toString() {
+        return String.format("%s %s", id, gold);
+    }
 }
