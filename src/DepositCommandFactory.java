@@ -2,15 +2,21 @@ import java.util.Map;
 import java.util.Objects;
 
 public class DepositCommandFactory implements AbstractDepositCommandFactory {
+    private CommandHistory commandHistory;
+
+    public DepositCommandFactory() {
+        commandHistory = new FileCommandHistory("storage");
+    }
+
     public DepositCommand create(Map<String, String> context) {
-        if(Objects.equals(context.get("type"), "напрямую")) {
+        if (Objects.equals(context.get("type"), "напрямую")) {
             DepositCommandContext depositCommandContext = new DepositCommandContext();
             depositCommandContext.playerId = Integer.parseInt(context.get("playerId"));
             depositCommandContext.clanId = Integer.parseInt(context.get("clanId"));
             depositCommandContext.gold = Integer.parseInt(context.get("gold"));
             InMemoryBankRepository repository = new InMemoryBankRepository();
             repository.bank = new Bank();
-            DirectDepositCommand directDepositCommand = new DirectDepositCommand(new InMemoryCommandHistory(), repository);
+            DirectDepositCommand directDepositCommand = new DirectDepositCommand(commandHistory, repository);
             directDepositCommand.setContext(depositCommandContext);
             return directDepositCommand;
         }
@@ -20,7 +26,7 @@ public class DepositCommandFactory implements AbstractDepositCommandFactory {
             Player player = new Player();
             player.bank = new Bank(100);
             playerRepository.player = player;
-            ArenaFightDepositCommand arenaFightDepositCommand = new ArenaFightDepositCommand(new InMemoryCommandHistory(), playerRepository, new GreatArenaWinStrategy());
+            ArenaFightDepositCommand arenaFightDepositCommand = new ArenaFightDepositCommand(commandHistory, playerRepository, new GreatArenaWinStrategy());
             arenaFightDepositCommand.setPlayerId(1);
             return arenaFightDepositCommand;
         }
