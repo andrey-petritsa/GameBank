@@ -13,6 +13,7 @@ public class ArenaFightDepositCommand implements DepositCommand {
     public void execute() {
         Player player = playerRepository.findById(playerId);
         player.bank.gold += arenaWinStrategy.getReward();
+        playerRepository.save(player);
         String commandMessage = String.format("Команда положить %s золота в банк (сражаясь на арене). От игрока: %s. В клан: %s. Золота итого: %s", arenaWinStrategy.getReward(), player.id, player.bank.id, player.bank.gold);
         this.commandHistory.push(commandMessage, this);
     }
