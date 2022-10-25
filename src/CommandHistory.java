@@ -1,5 +1,6 @@
 public interface CommandHistory {
-    String pop();
+
+    String get(int i);
 
     void push(String command);
 }

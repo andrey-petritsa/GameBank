@@ -10,7 +10,7 @@ public class DepositCommandFactory implements AbstractDepositCommandFactory {
             depositCommandContext.gold = Integer.parseInt(context.get("gold"));
             InMemoryBankRepository repository = new InMemoryBankRepository();
             repository.bank = new Bank();
-            DirectDepositCommand directDepositCommand = new DirectDepositCommand(new StackCommandHistory(), repository);
+            DirectDepositCommand directDepositCommand = new DirectDepositCommand(new InMemoryCommandHistory(), repository);
             directDepositCommand.setContext(depositCommandContext);
             return directDepositCommand;
         }
@@ -20,7 +20,7 @@ public class DepositCommandFactory implements AbstractDepositCommandFactory {
             Player player = new Player();
             player.bank = new Bank(100);
             playerRepository.player = player;
-            ArenaFightDepositCommand arenaFightDepositCommand = new ArenaFightDepositCommand(new StackCommandHistory(), playerRepository, new GreatArenaWinStrategy());
+            ArenaFightDepositCommand arenaFightDepositCommand = new ArenaFightDepositCommand(new InMemoryCommandHistory(), playerRepository, new GreatArenaWinStrategy());
             arenaFightDepositCommand.setPlayerId(1);
             return arenaFightDepositCommand;
         }
