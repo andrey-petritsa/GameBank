@@ -24,19 +24,18 @@ public class FilePlayerRepositoryTest {
         bankRepository.save(bank);
         playerRepository.save(player);
 
-        assertEquals("1 1", playerRepository.findById(1).toString());
+        assertEquals("1 1 0", playerRepository.findById(1).toString());
         assertEquals(100, playerRepository.findById(1).bank.gold);
     }
 
     @Test
     void saveToFile() {
         Bank bank = new Bank(1, 100);
-        Player player = new Player(1, bank);
+        Player player = new Player(1, bank, 500);
 
-        bankRepository.save(bank);
         playerRepository.save(player);
 
-        assertEquals("1 1", playerRepository.findById(1).toString());
+        assertEquals("1 1 500", playerRepository.findById(1).toString());
         assertEquals(100, playerRepository.findById(1).bank.gold);
     }
 }

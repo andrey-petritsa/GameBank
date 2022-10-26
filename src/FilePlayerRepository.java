@@ -18,6 +18,8 @@ public class FilePlayerRepository implements PlayerRepository {
 
     @Override
     public void save(Player player) {
+        bankRepository.save(player.bank);
+
         fileClient.writeToFile(player.toString(), pathToFile);
     }
 
@@ -26,12 +28,14 @@ public class FilePlayerRepository implements PlayerRepository {
         List<String> players = fileClient.readAllLines(pathToFile);
 
         for (String player : players) {
-            int playerId = Integer.parseInt(player.split(" ")[0]);
-            int bankId = Integer.parseInt(player.split(" ")[1]);
+            String[] playerData = player.split(" ");
+            int playerId = Integer.parseInt(playerData[0]);
+            int bankId = Integer.parseInt(playerData[1]);
+            int gold = Integer.parseInt(playerData[2]);
 
             if (playerId == id) {
                 Bank foundedBank = bankRepository.findById(bankId);
-                return new Player(playerId, foundedBank);
+                return new Player(playerId, foundedBank, gold);
             }
         }
 

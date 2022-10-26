@@ -20,6 +20,6 @@ public class Player {
 
 
     public String toString() {
-        return String.format("%s %s", id, bank.id);
+        return String.format("%s %s %s", id, bank.id, gold);
     }
 }
