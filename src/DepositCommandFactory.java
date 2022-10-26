@@ -28,26 +28,33 @@ public class DepositCommandFactory implements AbstractDepositCommandFactory {
     }
 
     private DirectDepositCommand createDirectDepositCommand(Map<String, String> context) {
+        DirectDepositCommand directDepositCommand = createDirectDepositCommandWithContext(context);
+        this.log = String.format("Создана команда %s", directDepositCommand.getClass().getSimpleName());
+        return directDepositCommand;
+    }
+
+    private DirectDepositCommand createDirectDepositCommandWithContext(Map<String, String> context) {
+        DirectDepositCommand directDepositCommand = new DirectDepositCommand(commandHistory, bankRepository, playerRepository);
+        directDepositCommand.setContext(getDepositCommandContext(context));
+        return directDepositCommand;
+    }
+
+    private static DepositCommandContext getDepositCommandContext(Map<String, String> context) {
         DepositCommandContext depositCommandContext = new DepositCommandContext();
         depositCommandContext.playerId = Integer.parseInt(context.get("playerId"));
         depositCommandContext.clanId = Integer.parseInt(context.get("clanId"));
         depositCommandContext.gold = Integer.parseInt(context.get("gold"));
-        DirectDepositCommand directDepositCommand = new DirectDepositCommand(commandHistory, bankRepository, playerRepository);
-        directDepositCommand.setContext(depositCommandContext);
-        String commandName = directDepositCommand.getClass().getSimpleName();
-        this.log = String.format("Создана команда %s", commandName);
-        return directDepositCommand;
+        return depositCommandContext;
     }
 
     private ArenaFightDepositCommand createArenaDepositCommand(Map<String, String> context) {
         ArenaWinStrategy strategy = selectStrategy(context);
-        int playerId = Integer.parseInt(context.get("playerId"));
         ArenaFightDepositCommand arenaFightDepositCommand = new ArenaFightDepositCommand(commandHistory, playerRepository, strategy);
-        arenaFightDepositCommand.setPlayerId(playerId);
+        arenaFightDepositCommand.setPlayerId(Integer.parseInt(context.get("playerId")));
 
         String commandName = arenaFightDepositCommand.getClass().getSimpleName();
         String strategyName = strategy.getClass().getSimpleName();
-        this.log = String.format("Создана команда %s с стратегией %s. Id игрока: %s", commandName, strategyName, playerId);
+        this.log = String.format("Создана команда %s с стратегией %s. Id игрока: %s", commandName, strategyName, context.get("playerId"));
 
         return arenaFightDepositCommand;
     }
