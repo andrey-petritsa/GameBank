@@ -26,7 +26,9 @@ public class Main {
         if(Objects.equals(commandName, "арена")) {
             System.out.print("Идентефикатор победившего на арене игрока?");
             String playerId = in.nextLine();
-            context = Map.of("playerId", playerId);
+            System.out.print("Вид победы");
+            String strategy = in.nextLine();
+            context = Map.of("playerId", playerId, "strategy", strategy, "type", commandName);
         }
 
         command = factory.create(context);
