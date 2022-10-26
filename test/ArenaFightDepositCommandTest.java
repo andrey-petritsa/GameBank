@@ -14,7 +14,7 @@ public class ArenaFightDepositCommandTest {
 
         command.execute();
 
-        assertEquals("Команда положить 1000 золота в банк (сражаясь на арене). От игрока: 1. В клан: 1. Золота итого: 1100", history.get(0));
+        assertEquals("Игрок 1 выйграл в битве на арене 1000 золота. Золото положено в Банк 1", history.get(0));
     }
 
     @Test
