@@ -1,5 +1,4 @@
 import java.io.IOException;
-import java.util.List;
 
 public class FileBankRepository implements BankRepository {
     private final String pathToFile;
@@ -20,18 +19,14 @@ public class FileBankRepository implements BankRepository {
     }
 
     private Bank createBankFromFileRecord(int id) throws IOException {
-        List<String> banks = fileClient.readAllLines(pathToFile);
-
-        for (String bank : banks) {
-            int bankId = Integer.parseInt(bank.split(" ")[0]);
-            int bankGold = Integer.parseInt(bank.split(" ")[1]);
-
-            if (bankId == id) {
-                return new Bank(bankId, bankGold);
-            }
+        String bankLine = fileClient.findLineById(pathToFile, id);
+        if (bankLine.isBlank()) {
+            throw new RuntimeException(String.format("Bank with id %s not found", id));
         }
 
-        throw new RuntimeException(String.format("Bank with id %s not found", id));
+        int bankId = Integer.parseInt(bankLine.split(" ")[0]);
+        int bankGold = Integer.parseInt(bankLine.split(" ")[1]);
+        return new Bank(bankId, bankGold);
     }
 
     @Override

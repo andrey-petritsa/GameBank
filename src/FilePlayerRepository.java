@@ -1,5 +1,3 @@
-import java.util.List;
-
 public class FilePlayerRepository implements PlayerRepository {
     private final FileClient fileClient;
     private final String pathToFile;
@@ -30,21 +28,19 @@ public class FilePlayerRepository implements PlayerRepository {
 
     @Override
     public Player findById(int id) {
-        List<String> players = fileClient.readAllLines(pathToFile);
-
-        for (String player : players) {
-            String[] playerData = player.split(" ");
-            int playerId = Integer.parseInt(playerData[0]);
-            int bankId = Integer.parseInt(playerData[1]);
-            int gold = Integer.parseInt(playerData[2]);
-
-            if (playerId == id) {
-                Bank foundedBank = bankRepository.findById(bankId);
-                return new Player(playerId, foundedBank, gold);
-            }
+        String playerLine = fileClient.findLineById(pathToFile, id);
+        if (playerLine.isBlank()) {
+            throw new RuntimeException(String.format("Bank with id %s not found", id));
         }
 
-        throw new RuntimeException(String.format("Player with id %s not found", id));
+        return createPlayerFromFileLine(playerLine);
+    }
+
+    private Player createPlayerFromFileLine(String playerLine) {
+        int playerId = Integer.parseInt(playerLine.split(" ")[0]);
+        Bank bank = bankRepository.findById(Integer.parseInt(playerLine.split(" ")[1]));
+        int playerGold = Integer.parseInt(playerLine.split(" ")[2]);
+        return new Player(playerId, bank, playerGold);
     }
 
     @Override
