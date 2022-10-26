@@ -17,7 +17,7 @@ public class DirectDepositCommandTest {
         command.setContext(new DepositCommandContext(depositGold, 1, 1));
         command.execute();
 
-        assertEquals("Команда положить 100 золота в банк (напрямую из кармана). От игрока: 1. От клана: 1. Всего золота: 200", mockHistory.get(0));
+        assertEquals("Игрок 1 Положил 100 золота В банк 1", mockHistory.get(0));
     }
 
     @Test

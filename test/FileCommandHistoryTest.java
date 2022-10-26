@@ -6,7 +6,8 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.containsString;
 
 public class FileCommandHistoryTest {
     private final String PATH_TO_FILE = "tmp/history.txt";
@@ -25,7 +26,7 @@ public class FileCommandHistoryTest {
         File file = new File("tmp/history.txt");
         BufferedReader br = new BufferedReader(new FileReader(file));
 
-        assertEquals("Команда запущена | NullDepositCommand", br.readLine());
+        assertThat(br.readLine(), containsString("Команда запущена | NullDepositCommand"));
     }
 
     @Test
@@ -35,7 +36,7 @@ public class FileCommandHistoryTest {
         history.push("Команда 1 запущена", new NullDepositCommand());
         history.push("Команда 2 запущена", new NullDepositCommand());
 
-        assertEquals("Команда 1 запущена | NullDepositCommand", history.get(0));
-        assertEquals("Команда 2 запущена | NullDepositCommand", history.get(1));
+        assertThat(history.get(0), containsString("Команда 1 запущена | NullDepositCommand"));
+        assertThat(history.get(1), containsString("Команда 2 запущена | NullDepositCommand"));
     }
 }

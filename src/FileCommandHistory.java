@@ -1,3 +1,4 @@
+import java.text.SimpleDateFormat;
 
 public class FileCommandHistory implements CommandHistory {
     private final String pathToFile;
@@ -14,7 +15,8 @@ public class FileCommandHistory implements CommandHistory {
     }
 
     public void push(String commandMessage, DepositCommand command) {
-        String commandMessageWithCommandInstance = String.format("%s | %s", commandMessage, command.getClass().getSimpleName());
+        String timeStamp = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new java.util.Date());
+        String commandMessageWithCommandInstance = String.format("%s | %s | %s", commandMessage, command.getClass().getSimpleName(), timeStamp);
         fileClient.writeToFile(commandMessageWithCommandInstance, pathToFile);
     }
 }

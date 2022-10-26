@@ -24,8 +24,9 @@ public class DirectDepositCommand implements DepositCommand {
         bankRepository.save(bank);
         playerRepository.save(player);
 
-        String commandMessage = String.format("Команда положить %s золота в банк (напрямую из кармана). От игрока: %s. От клана: %s. Всего золота: %s", context.gold, context.playerId, context.clanId, bank.gold);
-        this.commandHistory.push(commandMessage, this);
+        String commandMessage = "Игрок %s Положил %s золота В банк %s";
+        String formattedMessage = String.format(commandMessage, context.playerId, context.gold, context.clanId);
+        this.commandHistory.push(formattedMessage, this);
     }
 
     public void setContext(DepositCommandContext context) {
