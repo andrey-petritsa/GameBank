@@ -4,36 +4,53 @@ import java.util.Objects;
 import java.util.Scanner;
 
 public class Main {
+    private static final Scanner in = new Scanner(System.in);
+    private static final String[] supportedCommands = {"напрямую", "арена"};
+    private static final String[] supportedStrategies = {"великая-победа", "обычная-победа"};
+
     public static void main(String[] args) {
         DepositCommandFactory factory = new DepositCommandFactory();
-        Scanner in = new Scanner(System.in);
-        DepositCommand command;
-        Map<String, String> context = new HashMap<>();
 
-        System.out.print("Введите название команды депозита: ");
-        String commandName = in.nextLine();
-
-        if(Objects.equals(commandName, "напрямую")) {
-            System.out.print("Сколько добавить золота?");
-            String gold = in.nextLine();
-            System.out.print("Идентификатор добавляющего игрока?");
-            String playerId = in.nextLine();
-            System.out.print("Идентификатор клана куда добавить?");
-            String clanId = in.nextLine();
-            context = Map.of("gold", gold, "playerId", playerId, "clanId", clanId, "type", commandName);
-        }
-
-        if(Objects.equals(commandName, "арена")) {
-            System.out.print("Идентефикатор победившего на арене игрока?");
-            String playerId = in.nextLine();
-            System.out.print("Вид победы");
-            String strategy = in.nextLine();
-            context = Map.of("playerId", playerId, "strategy", strategy, "type", commandName);
-        }
-
-        command = factory.create(context);
+        DepositCommand command = factory.create(getCommandContext());
         command.execute();
 
-        System.out.println("Команда успешно выполнена!");
+        System.out.println("Команда успешно выполнена! Проверьте историю");
+    }
+
+    private static Map<String, String> getCommandContext() {
+        String commandName = askUserToProvideCommandName();
+
+        Map<String, String> context = new HashMap<>();
+        if (Objects.equals(commandName, "напрямую")) {
+            context = askUserToMakeDirectCommandContext(commandName);
+        }
+
+        if (Objects.equals(commandName, "арена")) {
+            context = askUserToMakeArenaCommandContext(commandName);
+        }
+        return context;
+    }
+
+    private static String askUserToProvideCommandName() {
+        System.out.printf("Тип команды депозита?. Доступные: %s ", String.join(" ", supportedCommands));
+        return in.nextLine();
+    }
+
+    private static Map<String, String> askUserToMakeDirectCommandContext(String commandName) {
+        System.out.print("Сколько добавить золота? ");
+        String gold = in.nextLine();
+        System.out.print("Идентификатор добавляющего игрока? ");
+        String playerId = in.nextLine();
+        System.out.print("Идентификатор клана куда добавить? ");
+        String clanId = in.nextLine();
+        return Map.of("gold", gold, "playerId", playerId, "clanId", clanId, "type", commandName);
+    }
+
+    private static Map<String, String> askUserToMakeArenaCommandContext(String commandName) {
+        System.out.print("Идентефикатор победившего на арене игрока? ");
+        String playerId = in.nextLine();
+        System.out.printf("Тип победы?. Доступные: %s ", String.join(" ", supportedStrategies));
+        String strategy = in.nextLine();
+        return Map.of("playerId", playerId, "strategy", strategy, "type", commandName);
     }
 }
