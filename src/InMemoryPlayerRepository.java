@@ -22,4 +22,9 @@ public class InMemoryPlayerRepository implements PlayerRepository {
     public void save(Player player) {
         this.player = player;
     }
+
+    @Override
+    public int count() {
+        return 1;
+    }
 }

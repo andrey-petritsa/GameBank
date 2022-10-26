@@ -7,5 +7,9 @@ public interface FileClient {
 
     String readLine(String pathToFile, int i);
 
-    void deleteFile(String pathToFile);
+    void replaceLine(String pathToFile, String oldLine, String newLine);
+
+    void cleanFile(String pathToFile);
+
+    String findLineById(String pathToFile, int searchId);
 }

@@ -20,7 +20,12 @@ public class FilePlayerRepository implements PlayerRepository {
     public void save(Player player) {
         bankRepository.save(player.bank);
 
-        fileClient.writeToFile(player.toString(), pathToFile);
+        String line = fileClient.findLineById(pathToFile, player.id);
+        if (line.isBlank()) {
+            fileClient.writeToFile(player.toString(), pathToFile);
+        } else {
+            fileClient.replaceLine(pathToFile, line, player.toString());
+        }
     }
 
     @Override
@@ -40,5 +45,10 @@ public class FilePlayerRepository implements PlayerRepository {
         }
 
         throw new RuntimeException(String.format("Player with id %s not found", id));
+    }
+
+    @Override
+    public int count() {
+        return fileClient.readAllLines(pathToFile).size();
     }
 }

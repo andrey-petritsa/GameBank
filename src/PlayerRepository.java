@@ -4,4 +4,6 @@ public interface PlayerRepository {
     BankRepository createBankRepository();
 
     void save(Player player);
+
+    int count();
 }

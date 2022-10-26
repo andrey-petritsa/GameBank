@@ -14,7 +14,7 @@ public class FileCommandHistoryTest {
 
     @BeforeEach
     public void setUp() {
-        fileClient.deleteFile(PATH_TO_FILE);
+        fileClient.cleanFile(PATH_TO_FILE);
     }
 
     @Test

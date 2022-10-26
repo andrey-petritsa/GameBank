@@ -36,6 +36,11 @@ public class FileBankRepository implements BankRepository {
 
     @Override
     public void save(Bank bank) {
-        fileClient.writeToFile(bank.toString(), pathToFile);
+        String line = fileClient.findLineById(pathToFile, bank.id);
+        if (line.isBlank()) {
+            fileClient.writeToFile(bank.toString(), pathToFile);
+        } else {
+            fileClient.replaceLine(pathToFile, line, bank.toString());
+        }
     }
 }
