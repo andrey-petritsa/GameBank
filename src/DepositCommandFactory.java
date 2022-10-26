@@ -8,6 +8,7 @@ public class DepositCommandFactory implements AbstractDepositCommandFactory {
         commandHistory = new FileCommandHistory("storage/history.txt", new PathFileClient());
     }
 
+    @Override
     public DepositCommand create(Map<String, String> context) {
         if (Objects.equals(context.get("type"), "напрямую")) {
             DepositCommandContext depositCommandContext = new DepositCommandContext();
