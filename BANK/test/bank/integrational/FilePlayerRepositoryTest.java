@@ -5,6 +5,7 @@ import bank.Player;
 import bank.repository.FileClient;
 import bank.repository.FilePlayerRepository;
 import bank.repository.PathFileClient;
+import bank.repository.TestableFilePlayerRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -13,8 +14,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class FilePlayerRepositoryTest {
     FileClient fileClient = new PathFileClient();
     String pathToPlayers = "tmp/players.txt";
-    private final FilePlayerRepository playerRepository = new FilePlayerRepository(pathToPlayers, new PathFileClient());
     String pathToBanks = "tmp/banks.txt";
+    private final FilePlayerRepository playerRepository = new TestableFilePlayerRepository(pathToPlayers, new PathFileClient());
 
     @BeforeEach
     void setUp() {

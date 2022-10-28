@@ -16,7 +16,7 @@ public class FilePlayerRepository implements PlayerRepository {
 
     @Override
     public BankRepository createBankRepository() {
-        return new FileBankRepository("tmp/banks.txt", new PathFileClient());
+        return new FileBankRepository("storage/banks.txt", new PathFileClient());
     }
 
     @Override
